@@ -1,0 +1,25 @@
+# Игнорируем файлы и каталоги, специфичные для IDE (например, PhpStorm)
+.idea/
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.dev
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+# Кэш, сессии, логи и временные файлы
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+# PHPUnit
+/phpunit.xml
+.phpunit.result.cache
+
+# Symfony PHPUnit Bridge
+.phpunit.result.cache
+/phpunit.xml
+
+# Lexik JWT Authentication Bundle
+/config/jwt/*.pem
