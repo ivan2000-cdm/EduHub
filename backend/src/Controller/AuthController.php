@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\JWTTokenService;
 use App\Controller\Core\CoreController;
+use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,27 +30,10 @@ class AuthController extends CoreController
         $this->jwtTokenService = $jwtTokenService;
     }
 
-    /**
-     * @throws CustomException
-     */
-    #[RouteAttribute('/api/login', name: 'api_login', methods: ['POST'])]
-    public function login(Request $request): JsonResponse
+    #[NoReturn] #[RouteAttribute('/api/login', name: 'api_login', methods: ['POST'])]
+    public function login(): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
-
-        if (empty($data['username']) || empty($data['password'])) {
-            return $this->error('Пожалуйста, укажите логин и пароль.', Response::HTTP_BAD_REQUEST);
-        }
-
-        $user = $this->userRepository->findOneBy(['username' => $data['username']]);
-
-        if (!$user || !$this->passwordHasher->isPasswordValid($user, $data['password'])) {
-            return $this->error('Неверные учетные данные.', Response::HTTP_UNAUTHORIZED);
-        }
-
-        $token = $this->jwtTokenService->create($user);
-
-        return $this->json(['token' => $token]);
+        return new JsonResponse(['token' => 'jwt_token']); // Возвращаем токен
     }
 
     /**
