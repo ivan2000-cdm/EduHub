@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
-use App\AppCore\Exceptions\CustomException;
+use App\AppCore\CustomExceptions\CustomException;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\JWTTokenService;
-use App\Controller\Core\CoreController;
+use App\Controller\CoreControllers\CoreController;
+use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\NoReturn;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -23,8 +24,12 @@ class AuthController extends CoreController
     public function __construct(
         UserRepository $userRepository,
         UserPasswordHasherInterface $passwordHasher,
-        JWTTokenService $jwtTokenService
+        JWTTokenService $jwtTokenService,
+        EntityManagerInterface $em,
+        ContainerInterface $cntr
     ) {
+        parent::__construct($em, $cntr); // вызов конструктора CoreController
+
         $this->userRepository = $userRepository;
         $this->passwordHasher = $passwordHasher;
         $this->jwtTokenService = $jwtTokenService;
@@ -33,7 +38,8 @@ class AuthController extends CoreController
     #[NoReturn] #[RouteAttribute('/api/login', name: 'api_login', methods: ['POST'])]
     public function login(): JsonResponse
     {
-        return new JsonResponse(['token' => 'jwt_token']); // Возвращаем токен
+        dd('ssdsxds');
+        return $this->json(['token' => 'jwt_token']); // Возвращаем токен
     }
 
     /**

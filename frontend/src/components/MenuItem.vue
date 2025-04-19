@@ -1,32 +1,41 @@
 <template>
   <li>
-    <a
-      :href="item.path"
+    <!-- Пункт меню -->
+    <router-link
+      v-if="!hasChildren"
+      :to="item.path"
       class="nav-link d-flex justify-content-between"
-      @click.prevent="toggleSubMenu"
-      data-bs-toggle="collapse"
-      :data-bs-target="'#submenu-' + uniqueId"
+      active-class="active"
     >
       {{ item.title }}
-      <!-- Иконка для обозначения раскрытия вложений -->
-      <span v-if="item.children && item.children.length > 0" class="ml-2">
-        <i :class="isOpen ? 'bi bi-caret-down' : 'bi bi-caret-left'"></i>
-      </span>
-    </a>
+    </router-link>
 
-    <!-- Вложенные пункты -->
-    <ul
-      v-if="item.children && item.children.length > 0"
-      :class="['collapse', { show: isOpen }]"
-      :id="'submenu-' + uniqueId"
-      class="submenu"
-    >
-      <menu-item
-        v-for="(child, idx) in item.children"
-        :key="idx"
-        :item="child"
-      />
-    </ul>
+    <!-- Пункт с вложениями -->
+    <div v-else>
+      <a
+        href="#"
+        class="nav-link d-flex justify-content-between"
+        @click.prevent="toggleSubMenu"
+        :class="{ active: isOpen }"
+      >
+        {{ item.title }}
+        <span class="ml-2">
+          <i :class="isOpen ? 'bi bi-caret-down' : 'bi bi-caret-left'"></i>
+        </span>
+      </a>
+
+      <ul
+        v-if="hasChildren"
+        :class="['collapse submenu', { show: isOpen }]"
+        :id="'submenu-' + uniqueId"
+      >
+        <menu-item
+          v-for="(child, idx) in item.children"
+          :key="idx"
+          :item="child"
+        />
+      </ul>
+    </div>
   </li>
 </template>
 
@@ -34,30 +43,36 @@
 export default {
   name: 'MenuItem',
   props: {
-    item: Object, // Данные для текущего пункта меню
+    item: Object
   },
   data() {
     return {
-      isOpen: false, // Состояние открытого подменю
-      uniqueId: Math.random().toString(36).substring(2), // Генерация уникального идентификатора для каждого меню
-    };
+      isOpen: false,
+      uniqueId: Math.random().toString(36).substring(2)
+    }
+  },
+  computed: {
+    hasChildren() {
+      return this.item.children && this.item.children.length > 0
+    }
   },
   methods: {
-    // Переключение состояния подменю
     toggleSubMenu() {
-      this.isOpen = !this.isOpen;
-    },
-  },
-};
+      this.isOpen = !this.isOpen
+    }
+  }
+}
 </script>
 
 <style scoped>
-/* Убираем маркеры и отступы для вложенных списков */
 .submenu {
-  list-style-type: none; /* Убираем маркеры списка */
+  list-style-type: none;
 }
-
 .submenu li {
-  list-style-type: none; /* Убираем маркеры списка */
+  list-style-type: none;
+}
+.router-link-active {
+  font-weight: bold;
+  color: #0d6efd;
 }
 </style>

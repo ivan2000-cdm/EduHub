@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 import Login from '../pages/Login.vue'
 import Home from '../pages/Home.vue'
+import SchoolClasses from '../pages/directories/schoolClasses/index.vue' // Импортируешь компонент
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
         path: 'users',
         name: 'Users',
         component: Home
+      },
+      {
+        path: 'directories/classes',
+        name: 'SchoolClasses',
+        component: SchoolClasses
       }
     ]
   },

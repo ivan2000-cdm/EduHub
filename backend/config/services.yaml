@@ -9,6 +9,7 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/**/*Trait.php' # исключаем все трейты
 
     # Явная регистрация обработчиков успеха и неудачи
     App\Security\CustomAuthenticationSuccessHandler:

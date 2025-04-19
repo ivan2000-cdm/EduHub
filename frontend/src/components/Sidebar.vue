@@ -19,7 +19,7 @@ import MenuItem from '@/components/MenuItem.vue';
 import { fetchMenu } from '@/services/api';
 
 export default {
-  name: 'Sidebar',
+  name: 'SideBar',
   components: {
     MenuItem,
   },

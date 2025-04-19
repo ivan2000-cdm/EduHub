@@ -24,36 +24,6 @@ class MenuController extends AbstractController
                     [
                         'title' => 'Пользователи',
                         'path' => '/directories/users',
-                        'children' => [
-                            [
-                                'title' => 'Пользователи_1',
-                                'path' => '/directories/users',
-                            ],
-                            [
-                                'title' => 'Справочники',
-                                'path' => '/directories',
-                                'children' => [
-                                    [
-                                        'title' => 'Пользователи',
-                                        'path' => '/directories/users',
-                                        'children' => [
-                                            [
-                                                'title' => 'Пользователи_1',
-                                                'path' => '/directories/users',
-                                            ],
-                                            [
-                                                'title' => 'Пользователи_2',
-                                                'path' => '/directories/users',
-                                            ]
-                                        ]
-                                    ],
-                                    [
-                                        'title' => 'Классы',
-                                        'path' => '/directories/classes',
-                                    ]
-                                ]
-                            ]
-                        ]
                     ],
                     [
                         'title' => 'Классы',

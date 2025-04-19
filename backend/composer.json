@@ -32,6 +32,7 @@
         "symfony/routing": "*",
         "symfony/runtime": "*",
         "symfony/security-core": "*",
+        "symfony/serializer": "^7.2",
         "symfony/translation": "*",
         "symfony/validator": "*",
         "symfony/yaml": "*",
